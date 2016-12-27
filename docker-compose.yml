@@ -1,0 +1,16 @@
+ version: '2'
+ services:
+    db:
+      image: postgresql:9.4
+      build:
+        context: .
+
+      restart: always
+      ports:
+        - "5432:5432"
+      environment:
+        - DEBUG=false
+
+        - DB_USER=postgres
+        - DB_PASS=workfree
+        - DB_NAME= 'tryton', 'django'
