@@ -20,5 +20,7 @@
         - db
       links:
         - db
+
+
       environment:
         - TRYTOND_DATABASE_URI=postgresql://tryton@db:5432/
