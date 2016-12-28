@@ -2,5 +2,5 @@
 set -e
 
 sleep 10
-trytond-admin -c /etc/tryton/trytond.conf -d tryton -p --all
+trytond-admin -c /etc/tryton/trytond.conf -d tryton -p --all -l ru
 
