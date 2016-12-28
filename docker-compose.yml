@@ -1,16 +1,24 @@
  version: '2'
  services:
     db:
-      image: postgresql:9.4
-      build:
-        context: .
-
       restart: always
-      ports:
-        - "5432:5432"
+      build: postgres/
+#      ports:
+#        - "5432:5432"
       environment:
         - DEBUG=false
-
         - DB_USER=postgres
         - DB_PASS=workfree
         - DB_NAME= 'tryton', 'django'
+
+    tryton:
+      restart: always
+      build: tryton/
+      ports:
+        - "8000:8000"
+      depends_on:
+        - db
+      links:
+        - db
+      environment:
+        - TRYTOND_DATABASE_URI=postgresql://tryton@db:5432/
