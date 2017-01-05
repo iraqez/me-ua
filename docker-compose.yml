@@ -6,12 +6,23 @@
       ports:
         - "5432:5432"
       volumes:
-        - ./pgdata:/var/lib/postgresql/data/
+        - db_data:/var/lib/postgresql/data/
       environment:
         - DEBUG=false
         - DB_USER=postgres
         - DB_PASS=workfree
         - DB_NAME= 'tryton', 'django'
+
+    django:
+      restart: always
+      build: django/
+#      ports:
+#        - "8000:8000"
+#      depends_on:
+#        - db
+#      links:
+#        - db
+
 
     tryton:
       restart: always
@@ -26,3 +37,6 @@
 
       environment:
         - TRYTOND_DATABASE_URI=postgresql://tryton@db:5432/
+
+ volumes:
+  db_data:
