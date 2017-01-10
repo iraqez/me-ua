@@ -1,0 +1,4 @@
+-r /data/web/present-me/requirements.txt
+redis<=2.10.3
+django-redis<=4.3.0
+gunicorn<=19.3.0

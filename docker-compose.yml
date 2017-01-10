@@ -13,16 +13,35 @@
         - DB_PASS=workfree
         - DB_NAME= 'tryton', 'django'
 
-    django:
+    web:
       restart: always
-      build: django/
-#      ports:
-#        - "8000:8000"
-#      depends_on:
-#        - db
-#      links:
-#        - db
+      build: ./web/
+      expose:
+        - "8000"
+      links:
+        - db
+        - redis
+      env_file: env
+      volumes:
+        - ./web/:/data/web
 
+      command: bash -c "python manage.py makemigrations && python manage.py migrate && python manage.py collectstatic --noinput && gunicorn present-me.wsgi -b 0.0.0.0:8000"
+
+    nginx:
+      restart: always
+      build: ./nginx/
+      ports:
+        - "80:80"
+      volumes_from:
+        - web
+      links:
+        - web:web
+
+    redis:
+      restart: always
+      image: redis:latest
+      expose:
+        - "6379"
 
     tryton:
       restart: always
