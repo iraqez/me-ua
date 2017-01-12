@@ -42,6 +42,8 @@
       image: redis:latest
       expose:
         - "6379"
+      ports:
+        - "6379:6379"
 
     tryton:
       restart: always
