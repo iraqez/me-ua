@@ -19,7 +19,16 @@ RUN mkdir -p /data/web
 
 # Prepare
 
+RUN pip install proteus trytond
+
+RUN pip install trytond_sale \
+    && pip install trytond_analytic_sale \
+    && pip install trytond_project \
+    && pip install trytond_purchase \
+    && pip install trytond_analytic_purchase
+
 COPY . /data/web
+COPY ./trytond.conf /etc/tryton/trytond.conf
 
 RUN pip3 install -r requirements.txt
 WORKDIR /data/web/present-me
